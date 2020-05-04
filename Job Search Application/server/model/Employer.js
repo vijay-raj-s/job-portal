@@ -13,6 +13,11 @@ const EmployerSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  companyLogo: { 
+    type: String,
+    required : false 
+  
+  },
   email: {
     type: String,
     required: true

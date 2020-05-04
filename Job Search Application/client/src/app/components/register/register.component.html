@@ -1,0 +1,46 @@
+<div class="register-container">
+    <div class='header'>
+        <button mat-button color="primary" *ngIf="isJobseeker" (click)="userTypeSwap()">Register as Employer</button>
+        <button mat-button color="primary" *ngIf="!isJobseeker" (click)="userTypeSwap()">Register as Jobseeker</button>
+        <a routerLink="/login" ><button mat-raised-button color="primary">Sign in</button></a>
+    </div>
+    <div class='content'>
+        <div class='image-container'>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by katemangostar - www.freepik.com</a> -->
+        </div>
+        <div class='register-section'>
+            <div class="register-form">
+                <div class='label' *ngIf="isJobseeker"> Register as a new Jobseeker </div>
+                <div class='label' *ngIf="!isJobseeker"> Register as a new Employer </div>
+                <div class='input-container' >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder='Enter name' type="text">
+                    </mat-form-field>
+                </div> 
+                <div class='input-container'>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder='Enter Email' type="email">
+                    </mat-form-field>
+                </div>
+                <div class='input-container'>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder='Enter password' type='text'>
+                    </mat-form-field>
+                </div>
+                <div class='input-container'>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput placeholder='Enter password' type='password'>
+                    </mat-form-field>
+                </div> 
+                <div class="submit">
+                    <button mat-raised-button color="primary">Register</button>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div>

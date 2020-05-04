@@ -1,0 +1,113 @@
+@import '../../common/color'
+@import '../../common/mixins'
+@import '../../common/fonts'
+@import '../../common/constants'
+    
+    
+.search-container
+    display: flex
+    @include fullHWP
+    .search-section
+        width: calc(100% - #{$job-details-width})
+
+        .search-bar-section
+            @include flex-space-between 
+            width: 100%
+
+            .search-label
+                font-size: 24px
+                font-weight: 700
+                width: calc(30% - 40px)
+                margin-left: 40px
+                
+            
+            .search-bar
+                width: calc(#{$search-bar-width} - 40px)
+                background: $primary-white
+                border-radius: 50px
+                margin-right: 40px
+                height: 40px
+                display: flex
+
+                input
+                    border: none
+                    width: calc(100% - 60px)
+                    margin: 0px 30px 0px 15px
+                    
+                    height: calc(100% - 2px)
+                    outline: none
+
+                button
+                    width: 40px
+                    border-radius: 50px
+
+        .filter-section
+            display: flex
+            align-items: center
+            height: 40px
+
+            .filter-label
+                color: #6F32FF
+                font-size: 18px
+                width: 30%
+                display: flex
+                font-weight: 500
+                justify-content: center
+                align-items: baseline
+                .secondary
+                    font-size: 12px
+                    color: grey
+                    padding-left: 5px
+            
+            .filters
+                width: 70%
+    
+        .search-listing
+            margin: 0px 40px
+            height: calc(100% - 80px)
+            overflow: auto
+
+            .job
+                height: 100px
+                @include flex-space-between
+                margin: 10px 0px
+                padding: 0px 10px
+                width: calc(100% - 40px)
+                background: $primary-white
+                color: $primary-black
+                @include box-shadow
+                border-radius: 5px
+                cursor: pointer
+
+                .company-info
+                    width: 60%
+                    display: flex
+
+                    .logo
+                        display: flex
+                        width: calc(20% - 10px)
+                        justify-content: flex-end
+                        align-items: center
+                        padding-right: 10px
+
+                    
+                    .name
+                        width: 80%
+
+                .job-type
+                    width: 20%
+                
+                .location
+                    width: 20%
+
+            .job:hover
+                color: $primary-white
+                background-color: $primary-color
+                
+    .job-details-section
+        width: $job-details-width
+        margin-top: 40px
+        border-radius: 5px
+        background-color: $primary-white
+        @include box-shadow
+        

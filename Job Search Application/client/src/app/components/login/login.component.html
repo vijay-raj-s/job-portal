@@ -1,0 +1,38 @@
+<div class="login-container">
+    <div class='header'>
+        <button mat-button color="primary" *ngIf="isJobseeker" (click)="userTypeSwap()">Login as Employer</button>
+        <button mat-button color="primary" *ngIf="!isJobseeker" (click)="userTypeSwap()">Login as Jobseeker</button>
+        <a routerLink="/register" ><button mat-raised-button color="primary">Sign up</button></a>
+    </div>
+    <div class='content'>
+        <div class='image-container'>
+            <!-- <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by katemangostar - www.freepik.com</a> -->
+        </div>
+        <div class='login-section'>
+            <div class="login-form">
+                <div class='label'> Login </div>
+                <div class='input-container'>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder='Enter Email' type="email" [formControl]="email" required>
+                        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class='input-container'>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder='Enter password' type='password' [formControl]="password" required>
+                        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class='forgot-password'>
+                    <a href='#'> Forgot Password? </a>
+                </div>
+                <div class="submit">
+                    <button mat-raised-button color="primary" (click)="login()">Login</button>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</div>

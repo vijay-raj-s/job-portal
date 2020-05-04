@@ -1,0 +1,23 @@
+<div class="container">
+    
+     
+    <div class="side-nav-container"> 
+        <div><a routerLink="search" routerLinkActive="active-nav">Search</a></div>
+        <div><a routerLink="applications" routerLinkActive="active-nav">My Applications</a></div>
+        <div><a routerLink="interviews" routerLinkActive="active-nav">My Interviews</a></div> 
+    </div>
+    <div class="content-container">
+        <div class="header">
+            <div> <a md-tab-link routerLink="/about" ><button mat-button color="accent">About</button></a>  </div>
+            
+            <div *ngIf="!isLoggedIn"> <a routerLink="/login"><button mat-button  color="accent">Login</button></a> </div>
+            <div *ngIf="!isLoggedIn"> <a routerLink="/register" ><button mat-button color="accent">Register</button></a> </div>
+            <div *ngIf="isLoggedIn"> <a routerLink="/logout" ><button mat-button color="accent">Logout</button></a> </div>
+            <div> <a routerLink="/employer" ><button mat-button color="accent">To Employer</button></a> </div>
+        </div> 
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div> 
+    
+</div>
