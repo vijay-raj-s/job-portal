@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { EmployerHomeComponent } from './components/employer/employer-home/employer-home.component';
 import { EmployerComponent } from './components/employer/employer.component';
@@ -25,7 +24,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    UserProfileComponent,
     LogoutComponent,
     EmployerHomeComponent,
     EmployerComponent,

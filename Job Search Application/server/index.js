@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jobSeeker = require("./routes/jobSeeker"); 
+const jobs = require("./routes/jobs");
 const employer = require("./routes/employer");
 const InitiateMongoServer = require("./config/db");
 var multer = require('multer');
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
  
 app.use("/jobseeker", jobSeeker);
 app.use("/employer", employer);
+app.use("/jobs",jobs)
 
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);
