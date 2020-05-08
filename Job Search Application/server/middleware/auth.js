@@ -6,15 +6,14 @@ module.exports = function(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, "secret");
+    console.log('Auth');
     console.log(decoded);
     if(decoded.jobSeeker) {
-        req.jobSeeker = decoded.jobSeeker
-        console.log("Job Seeker");
+        req.jobSeeker = decoded.jobSeeker 
     }else{
-        req.employer = decoded.employer
-        console.log("Employer");
+        req.employer = decoded.employer 
     }
-
+    console.log('decoded succesfully');
     next();
   } catch (e) {
     console.error(e);

@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { IJob } from 'src/app/interfaces/ijob';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import { JobService } from 'src/app/services/job.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-job',
@@ -21,7 +22,15 @@ export class PostJobComponent implements OnInit {
   skill: string;
   jobTypeOptions: ['Part-time', 'Full-time','Internship', 'Working student']
 
-  constructor(private jobService: JobService) { }
+  constructor(private jobService: JobService, private _snackBar: MatSnackBar) { 
+    
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '',{
+      duration: 2000
+    })
+  }
 
   ngOnInit(): void {
     this.jobForm = new FormGroup({
@@ -64,7 +73,8 @@ export class PostJobComponent implements OnInit {
     }
 
     this.jobService.postJob(job).subscribe(response =>{
-      console.log(response);
+      this.openSnackBar('Job Posted Successfully!');
+      this.clear();
     },
     (err) =>{
       console.log(`Error Saving Job ${err}`);

@@ -9,38 +9,45 @@
             <!-- <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by katemangostar - www.freepik.com</a> -->
         </div>
         <div class='register-section'>
+            <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="register(registerForm.value)">
             <div class="register-form">
                 <div class='label' *ngIf="isJobseeker"> Register as a new Jobseeker </div>
                 <div class='label' *ngIf="!isJobseeker"> Register as a new Employer </div>
                 <div class='input-container' >
                     <mat-form-field appearance="fill">
-                        <mat-label>Name</mat-label>
-                        <input matInput placeholder='Enter name' type="text">
+                        <mat-label>User name</mat-label>
+                        <input *ngIf="!isJobseeker" matInput placeholder='Enter Company name' type="text" formControlName="name" required>
+                        <input *ngIf="isJobseeker" matInput placeholder='Enter User name' type="text" formControlName="name" required>
+                        <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
                     </mat-form-field>
                 </div> 
                 <div class='input-container'>
                     <mat-form-field appearance="fill">
                         <mat-label>Email</mat-label>
-                        <input matInput placeholder='Enter Email' type="email">
+                        <input matInput placeholder='Enter Email' type="email" formControlName="email" required>
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                        <mat-error *ngIf="hasError('email', 'email')">Email is Invalid</mat-error>
                     </mat-form-field>
                 </div>
                 <div class='input-container'>
                     <mat-form-field appearance="fill">
                         <mat-label>Password</mat-label>
-                        <input matInput placeholder='Enter password' type='text'>
+                        <input matInput placeholder='Type your password' type='password' formControlName="password" required>
+                        <mat-error *ngIf="hasError('password', 'required')">password is required</mat-error>
                     </mat-form-field>
                 </div>
                 <div class='input-container'>
                     <mat-form-field appearance="fill">
-                        <mat-label>Confirm password</mat-label>
-                        <input matInput placeholder='Enter password' type='password'>
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type='text' placeholder="type your password again" formControlName="confirmPassword" required>
+                        <mat-error *ngIf="hasError('confirmPassword', 'required')">password confirmation is required</mat-error> 
                     </mat-form-field>
                 </div> 
                 <div class="submit">
-                    <button mat-raised-button color="primary">Register</button>
+                    <button mat-raised-button color="primary" type="submit">Register</button>
                 </div>
             </div>
-                
+            </form>
         </div>
     </div>
 </div>

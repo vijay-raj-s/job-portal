@@ -19,18 +19,18 @@
             <div class='job' *ngFor="let job of jobs"  (click)="setCurrentJob(job)"> 
                 <div class="company-info">
                     <div class="logo">
-                        <img  [src]="job.companyLogo" alt='logo'/>
+                        <img  [src]="job.employer[0].companyLogo" alt='logo'/>
                     </div>
                     <div class="name">
                         <div class="job-title"> {{job.jobTitle}}</div>
-                        <div class="company-name">{{job.companyName || 'Apple'}}</div>
+                        <div class="company-name">{{job.employer[0].companyName || 'Apple'}}</div>
                     </div>
                 </div>
                 <div class="job-type">
                     Working student
                 </div>
                 <div class="location">
-                   {{job.location}}
+                   {{job.employer[0].location}}
                 </div>
             </div>
         </div>   
@@ -39,10 +39,10 @@
         <div class="details-section">
             <div class='company-info'>
                 <div class="logo">
-                    <img  [src]="currentJob.companyLogo" alt='logo'/>
+                    <img  [src]="currentJob.employer[0].companyLogo" alt='logo'/>
                 </div>
                 <div class="company-name">
-                    {{currentJob.companyName || 'Apple'}}
+                    {{currentJob.employer[0].companyName}}
                 </div>
             </div>
             <div class='job-title'>
@@ -51,7 +51,7 @@
                         {{currentJob.jobTitle}}
                     </div>
                     <div class='location'>
-                        {{currentJob.location}}
+                        {{currentJob.employer[0].location}}
                     </div>
                 </div>
             </div>

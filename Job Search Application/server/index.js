@@ -6,6 +6,7 @@ const application = require("./routes/application");
 const employer = require("./routes/employer");
 const InitiateMongoServer = require("./config/db");
 var multer = require('multer');
+const cors = require('cors');
 
 // Initiate Mongo Server
 InitiateMongoServer();
@@ -23,6 +24,11 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
+
 
 app.get("/", (req, res) => {
   res.json({ message: "API Working" });

@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
 
   getJobs(){
     this.jobService.getAllJobs().subscribe(res => {
-      this.jobs = res;
+      this.jobs = res.jobs;
       this.currentJob  = this.jobs[0];
     },
     (err) => {

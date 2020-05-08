@@ -13,7 +13,7 @@
                         <div>
                             <mat-form-field class="job-title" appearance='fill'>
                                 <mat-label>Job Title</mat-label>
-                                <input matInput type="text" placeholder="Job Title" formControlName="jobTitle" id="jobTitle">
+                                <input matInput type="text" formControlName="jobTitle" id="jobTitle">
                                 <!-- <mat-hint align="end">Not more then 60 characters long.</mat-hint> -->
                                 <mat-error *ngIf="hasError('jobTitle', 'required')">Name is required</mat-error>
                                 <mat-error *ngIf="hasError('jobTitle', 'maxlength')">You have more than 60 characters</mat-error>

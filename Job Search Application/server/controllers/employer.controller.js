@@ -167,6 +167,7 @@ const getDetails = catchAsync(async (req, res) => {
   });
 
   const uploadCompanyLogo = catchAsync(async (req, res) => {
+    console.log('Uploade method');
     const { id } = req.employer.id; 
     try {
       let currentEmployer = await Employer.findOne({

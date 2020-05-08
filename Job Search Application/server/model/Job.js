@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
-const JobType = mongoose.Schema({
-    name : {
-        type: String,
-        required: true
-    }
-});
+const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
 const JobSchema = mongoose.Schema({
     jobTitle : {
@@ -37,7 +32,7 @@ const JobSchema = mongoose.Schema({
         required: false
     },
     jobType : {
-        type: JobType,
+        type: String,
         required: false,
         enum: ['Part-time', 'Full-time','Internship', 'Working student']
     },
@@ -58,6 +53,9 @@ const JobSchema = mongoose.Schema({
         default: Date.now()
     }
 });
+
+
+JobSchema.plugin(aggregatePaginate);
 
 // export model job with JobSchema
 module.exports = mongoose.model("job", JobSchema);

@@ -1,7 +1,7 @@
 
 const mongoose = require("mongoose");
-
-const JobSeekerSchema = require("../model/JobSeeker");
+const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
+ 
 
 const JobApplicationSchema = mongoose.Schema({
     jobId : {
@@ -12,9 +12,8 @@ const JobApplicationSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     }, 
-    jobSeeker: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'JobSeeker',
+    jobSeekerId: {
+        type: mongoose.Schema.Types.ObjectId, 
         required: true
     },
     status: {
@@ -26,19 +25,13 @@ const JobApplicationSchema = mongoose.Schema({
             "rejected"
         ]
     },
-    designation: {
-        type: String,
-        required: false
-    },
-    jobSeekerName: {
-        type: String,
-        required: true
-    },
     createdAt: {
         type: Date,
         default: Date.now()
     }
 });
 
+
+JobApplicationSchema.plugin(aggregatePaginate);
 // export model jobApplication with JobApplicationSchema
 module.exports = mongoose.model("jobApplication", JobApplicationSchema);
