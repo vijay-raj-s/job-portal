@@ -1,0 +1,124 @@
+<div class='post-jobs-container'>
+    <div class="form-section">
+        <div class="header-label">
+            Create a new job
+        </div>
+        <div class="form">
+            <form [formGroup]="jobForm" autocomplete="off" novalidate  fxLayout="column wrap"
+          fxLayoutAlign="center center" fxLayoutGap="10px">
+    
+                <div class="basic-info">
+                    <div class="label">Basic Information <div class="line"></div></div>
+                    <div class='info-section'>
+                        <div>
+                            <mat-form-field class="job-title" appearance='fill'>
+                                <mat-label>Job Title</mat-label>
+                                <input matInput type="text" placeholder="Job Title" formControlName="jobTitle" id="jobTitle">
+                                <!-- <mat-hint align="end">Not more then 60 characters long.</mat-hint> -->
+                                <mat-error *ngIf="hasError('jobTitle', 'required')">Name is required</mat-error>
+                                <mat-error *ngIf="hasError('jobTitle', 'maxlength')">You have more than 60 characters</mat-error>
+                            </mat-form-field>
+                        </div>
+                        
+                    </div>
+                    <div class="description-section">
+                       <div> 
+                           <mat-form-field appearance="fill" class="description">
+                               <mat-label>Job Description</mat-label>
+                               <textarea matInput CdkTextareaAutosize formControlName="jobDescription" id="jobDescription"></textarea>
+                           </mat-form-field> 
+                       </div>
+                       <div>
+                            <mat-form-field class="location" appearance='fill'>
+                                <mat-label>Location</mat-label>
+                                <input matInput type="text" placeholder="Enter location" formControlName="location" id="location">
+                                <mat-error *ngIf="hasError('jobTitle', 'required')">Name is required</mat-error>
+                            </mat-form-field>
+                        
+                            <mat-form-field appearance="fill" >
+                                <mat-label>Select Job Type</mat-label>
+                                <mat-select formControlName="jobType" id="jobType">
+                                    <!-- <mat-option *ngFor="let type of jobTypeOptions" [value]='type'>
+                                        {{type}}
+                                    </mat-option> -->
+                                    <mat-option>None</mat-option>
+                                    <mat-option value="Part-time">Part-time</mat-option>
+                                    <mat-option value="Full-time">Full-time</mat-option>
+                                    <mat-option value="Working Student">Working Student</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="hasError('jobType', 'required')">Job type is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="expectation-section">
+                    <div class="label">Skills and Qualifications <div class="line"></div></div>
+                    <div class="group1">
+                        <div> 
+                            <mat-form-field appearance="fill" class="long-input">
+                                <mat-label>Expectations and Qualifications</mat-label>
+                                <input matInput type="text" placeholder="Enter expectations" formControlName="expectations" #expVal (keydown.enter)="addToList(expVal.value,'expectations')">
+                                <mat-hint align="end">Enter text and push enter to add.</mat-hint>
+                            </mat-form-field>
+                            <div class="list-items" *ngIf="expectations.length">
+                                <div *ngFor="let item of expectations; index as index">
+                                    <div class="item"><mat-icon (click)="deleteListItem(index,'expectations')" aria-hidden="false" aria-label="close icon">close</mat-icon>{{item}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Skills</mat-label>
+                                <input matInput type="text" placeholder="Enter skills" formControlName="skills" #skillsVal (keydown.enter)="addToList(skillsVal.value,'skills')" >
+                                <mat-hint align="end">Enter text and push enter to add.</mat-hint>
+                            </mat-form-field>
+                            <div class="list-items short-list" *ngIf="jobSkills.length">
+                                <div *ngFor="let skill of jobSkills; index as index">
+                                    <div class="item"><mat-icon (click)="deleteListItem(index,'skills')" aria-hidden="false" aria-label="close icon">close</mat-icon>{{skill}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="group2"> 
+                        
+                        <div>
+                            <mat-form-field appearance="fill" class="long-input">
+                                <mat-label>Tasks and objectives</mat-label>
+                                <input matInput type="text" placeholder="Enter Tasks" formControlName="tasks" #tasksVal (keydown.enter)="addToList(tasksVal.value,'tasks')" >
+                                <mat-hint align="end">Enter text and push enter to add.</mat-hint>
+                            </mat-form-field>
+                            <div class="list-items"  *ngIf="tasks.length">
+                                <div *ngFor="let task of tasks; index as index">
+                                    <div class="item"><mat-icon (click)="deleteListItem(index,'tasks')" aria-hidden="false" aria-label="close icon">close</mat-icon>{{task}}</div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div>
+                            <mat-form-field appearance="fill" >
+                                <mat-label>Languages</mat-label>
+                                <input matInput type="text" placeholder="Enter languages" formControlName="languages" #langVal  (keydown.enter)="addToList(langVal.value,'languages')">
+                                <mat-hint align="end">Enter text and push enter to add.</mat-hint>
+                            </mat-form-field>
+                            <div class="list-items short-list" *ngIf="languages.length">
+                                <div *ngFor="let language of languages; index as index">
+                                    <div class="item"><mat-icon (click)="deleteListItem(index,'languages')" aria-hidden="false" aria-label="close icon">close</mat-icon>{{language}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-us"> 
+                    <mat-form-field appearance="fill" class="about-us-input">
+                        <mat-label>About us</mat-label>
+                        <textarea matInput formControlName="aboutUs" id="aboutUs"></textarea>
+                    </mat-form-field> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer-section">
+        <button mat-raised-button (click)="clear()" color="warn">Clear</button>
+        <button mat-raised-button (click)="createJob(jobForm.value)" color="primary">Save</button>
+    </div>
+</div>

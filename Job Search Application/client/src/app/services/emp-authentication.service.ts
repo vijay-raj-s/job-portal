@@ -16,7 +16,7 @@ export class EmpAuthenticationService {
   }
 
   isLogged() {
-    return localStorage.getItem(Constants.TOKEN) != null;
+    return (localStorage.getItem(Constants.TOKEN) && localStorage.getItem(Constants.E_ID)) != null;
   }
 
   login(user){

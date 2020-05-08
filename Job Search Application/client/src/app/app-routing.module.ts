@@ -11,6 +11,9 @@ import { EmployerAuthGuard } from './guards/employer-auth.guard';
 import { SearchComponent } from './components/search/search.component';
 import { InterviewsComponent } from './components/interviews/interviews.component';
 import { ApplicationsComponent } from './components/applications/applications.component';
+import { EmployerApplicationsComponent } from './components/employer-applications/employer-applications.component';
+import { PostJobComponent } from './components/post-job/post-job.component';
+import { EmployerInterviewsComponent } from './components/employer-interviews/employer-interviews.component';
 
 
 const routes: Routes = [
@@ -41,7 +44,30 @@ const routes: Routes = [
   },
   {
     path: 'employer',
-    component: EmployerComponent
+    component: EmployerComponent,
+    canActivate: [EmployerAuthGuard],
+    children: [
+      {
+        path:'',
+        redirectTo: 'applications',
+        pathMatch: 'full' 
+      },
+      {
+        path: 'applications', 
+        component: EmployerApplicationsComponent,
+        canActivate: [EmployerAuthGuard] 
+      },
+      {
+        path: 'createJob',
+        component: PostJobComponent,
+        canActivate: [EmployerAuthGuard] 
+      },
+      {
+        path: 'interviews',
+        component: EmployerInterviewsComponent,
+        canActivate: [EmployerAuthGuard] 
+      }
+    ]
   },  
   {
     path: 'employer/home',

@@ -6,6 +6,7 @@ const multer = require('multer');
 
 const createJob = catchAsync(async (req, res) => {
      
+    console.log('Createe------------------------');
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -13,26 +14,22 @@ const createJob = catchAsync(async (req, res) => {
         });
     }
 
-    //Getting job details from client
     const {
         jobTitle, 
         tasks,
         jobDescription,
         aboutUs,
-        jobType
-    } = req.body;
-    console.log("-----------------------------------------");
-    console.log(req.employer);
-    //Filling employer information
+        jobType,
+        expectations,
+        languages,
+        skills,
+        location
+    } = req.body;  
+
     const employerId = req.employer.id;
     const employerFromDb = await Employer.findById(req.employer.id);
-
-    console.log("-----------------------------------------");
-    console.log(employerFromDb);
-
     const companyLogo = employerFromDb.companyLogo;
     const companyUrl = employerFromDb.companyUrl;
-    const location = employerFromDb.location;
 
     try {
         let job = new Job({
@@ -41,6 +38,9 @@ const createJob = catchAsync(async (req, res) => {
             jobDescription,
             aboutUs,
             jobType,
+            expectations,
+            languages,
+            skills,
             employerId,
             companyUrl,
             companyLogo,

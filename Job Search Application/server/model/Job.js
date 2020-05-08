@@ -19,6 +19,15 @@ const JobSchema = mongoose.Schema({
     tasks : [{
         type: String
     }],
+    expectations : [{
+        type: String
+    }],
+    skills : [{
+        type: String
+    }],
+    languages : [{
+        type: String
+    }],
     jobDescription : {
         type: String,
         required: false
@@ -29,7 +38,8 @@ const JobSchema = mongoose.Schema({
     },
     jobType : {
         type: JobType,
-        required: false
+        required: false,
+        enum: ['Part-time', 'Full-time','Internship', 'Working student']
     },
     location: {
         type: String,

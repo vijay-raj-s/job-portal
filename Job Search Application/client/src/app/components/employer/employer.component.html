@@ -1,1 +1,19 @@
-<p>employer works!</p>
+<div class="container">
+    
+     
+    <div class="side-nav-container"> 
+        <div><a routerLink="applications" routerLinkActive="active-nav">Applications</a></div>
+        <div><a routerLink="createJob" routerLinkActive="active-nav">Post Job</a></div>
+        <div><a routerLink="interviews" routerLinkActive="active-nav">Interviews</a></div> 
+    </div>
+    <div class="content-container">
+        <div class="header">
+            <div> <a md-tab-link routerLink="/about" ><button mat-button color="accent">About</button></a>  </div>
+            <div > <a routerLink="/logout" ><button mat-button color="accent">Logout</button></a> </div> 
+        </div> 
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div> 
+    
+</div>

@@ -10,13 +10,13 @@
             </div>
         </div>    
         <div class='filter-section'>
-            <div class='filter-label'> 144 Jobs <span class='secondary'>matching your preferences</span></div>
+            <div class='filter-label'> 144 Jobs <span class='secondary'>found</span></div>
             <div class='filters'> 
                 
             </div>
         </div> 
         <div class='search-listing'>
-            <div class='job' *ngFor="let job of jobs"> 
+            <div class='job' *ngFor="let job of jobs"  (click)="setCurrentJob(job)"> 
                 <div class="company-info">
                     <div class="logo">
                         <img  [src]="job.companyLogo" alt='logo'/>
@@ -36,6 +36,47 @@
         </div>   
     </div>
     <div class='job-details-section'>
-        <div> </div>
+        <div class="details-section">
+            <div class='company-info'>
+                <div class="logo">
+                    <img  [src]="currentJob.companyLogo" alt='logo'/>
+                </div>
+                <div class="company-name">
+                    {{currentJob.companyName || 'Apple'}}
+                </div>
+            </div>
+            <div class='job-title'>
+                <div>
+                    <div class='title'>
+                        {{currentJob.jobTitle}}
+                    </div>
+                    <div class='location'>
+                        {{currentJob.location}}
+                    </div>
+                </div>
+            </div>
+            <div class='job-description'>
+                
+                <div class='label'>
+                    Job Description
+                </div>
+                <div class='content'>
+                    {{currentJob.jobDescription}}
+                </div>
+            </div>
+            <div class="job-tasks">
+                <div class='label'>
+                    Expected Tasks
+                </div>
+                <div class='content'>
+                    <div *ngFor="let task of currentJob.tasks">
+                        {{task}}
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <button mat-raised-button  color="primary">Apply Now</button>
+        </div>
     </div>
 </div>

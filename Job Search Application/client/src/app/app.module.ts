@@ -18,6 +18,9 @@ import { InterviewsComponent } from './components/interviews/interviews.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployerAuthGuard } from './guards/employer-auth.guard';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { EmployerApplicationsComponent } from './components/employer-applications/employer-applications.component';
+import { PostJobComponent } from './components/post-job/post-job.component';
+import { EmployerInterviewsComponent } from './components/employer-interviews/employer-interviews.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     JobSeekerComponent,
     SearchComponent,
     ApplicationsComponent,
-    InterviewsComponent
+    InterviewsComponent,
+    EmployerApplicationsComponent,
+    PostJobComponent,
+    EmployerInterviewsComponent
   ],
   imports: [
     BrowserModule,

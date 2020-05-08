@@ -1,0 +1,44 @@
+@import '../../common/color'
+@import '../../common/mixins'
+@import '../../common/fonts'
+@import '../../common/constants'
+    
+
+.emp-applications-container
+    @include fullHWP
+    
+    .employer-stats
+        height: 150px
+        @include flex-center 
+        
+        > div
+            height: 100%
+            width: 150px
+            margin: 0px 15px
+            border-radius: 10px
+            @include flex-center
+            
+
+            > div
+                text-align: center
+                .count
+                    font-size: 36px 
+
+                .label
+                    font-weight: 24px
+                    padding-top: 15px
+                    opacity: 0.5
+        
+        .jobs-posted
+            background-color: $light-color1
+
+
+        .jobs-open
+            background-color: $light-color2
+
+        .applicants
+            background-color: $light-color3
+            
+        .jobs-closed
+            background-color: $light-color4
+        

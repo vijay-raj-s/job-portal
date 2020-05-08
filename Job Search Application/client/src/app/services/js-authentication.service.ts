@@ -16,7 +16,7 @@ export class JsAuthenticationService {
   }
 
   isLogged() {
-    return localStorage.getItem(Constants.TOKEN) != null;
+    return (localStorage.getItem(Constants.TOKEN) && localStorage.getItem(Constants.J_ID)) != null;
   }
 
   login(user){

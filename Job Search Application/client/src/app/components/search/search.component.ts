@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
 import { IJob } from 'src/app/interfaces/ijob';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'app-search',
@@ -11,8 +11,9 @@ export class SearchComponent implements OnInit {
 
   searchText: string = ''
   jobs: Array<IJob> = [];
-  
-  constructor(private apiService: ApiService) { 
+  currentJob: IJob;
+
+  constructor(private jobService: JobService) { 
     this.getJobs();
   }
 
@@ -20,8 +21,9 @@ export class SearchComponent implements OnInit {
   }
 
   getJobs(){
-    this.apiService.getAllJobs().subscribe(res => {
+    this.jobService.getAllJobs().subscribe(res => {
       this.jobs = res;
+      this.currentJob  = this.jobs[0];
     },
     (err) => {
       console.log("Error while retreiving records");
@@ -29,5 +31,9 @@ export class SearchComponent implements OnInit {
     })
   }
 
+
+  setCurrentJob(job){
+    this.currentJob = job;
+  }
 
 }

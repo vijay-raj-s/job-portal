@@ -1,14 +1,6 @@
 const mongoose = require("mongoose");
 
-const JobSeekerSchema = mongoose.Schema({
-//   firstName: {
-//     type: String,
-//     required: true
-//   },
-//   lastName: {
-//     type: String,
-//     required: true
-//   },
+const JobSeekerSchema = mongoose.Schema({ 
   jobSeekerName : {
     type: String,
     required: true
@@ -21,6 +13,10 @@ const JobSeekerSchema = mongoose.Schema({
     type: String,
     required: false
   },
+  designation:{
+    type: String,
+    required: false
+  },
   location: {
     type: String,
     required: false
@@ -28,6 +24,10 @@ const JobSeekerSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  experience: {
+    type: String,
+    required: false
   },
   createdAt: {
     type: Date,

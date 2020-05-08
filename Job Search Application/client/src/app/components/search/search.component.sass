@@ -49,15 +49,12 @@
             .filter-label
                 color: #6F32FF
                 font-size: 18px
-                width: 30%
-                display: flex
+                width: calc(30% - 40px)
                 font-weight: 500
-                justify-content: center
-                align-items: baseline
+                padding-left: 40px
                 .secondary
                     font-size: 12px
-                    color: grey
-                    padding-left: 5px
+                    color: grey 
             
             .filters
                 width: 70%
@@ -109,9 +106,50 @@
                 background-color: $primary-color
                 
     .job-details-section
-        width: $job-details-width
+        width: calc($job-details-width)
         margin-top: 40px
         border-radius: 5px
         background-color: $primary-white
         @include box-shadow
-        
+        font-size: 18px
+
+        .details-section
+            height: calc(100% - #{$job-details-footer-height} - 60px)
+            overflow: auto
+            padding: 30px
+
+            .company-info
+                @include flex-center
+                margin: 30px 0px
+                height: 60px
+                .logo
+                    img
+                        width:50px
+                        height: 50px
+                        border-radius: 50px
+                
+                .company-name
+                    font-size: 18px
+                    padding-left: 20px
+            
+            .job-title
+                @include flex-center
+                margin: 30px 0px
+                text-align: center
+                height: 60px
+                .title
+                    font-weight: bold
+
+
+            .job-description, .job-tasks
+                margin: 30px 0px
+                .label
+                    font-weight: bold
+                    margin: 10px 0px
+
+        .footer-section
+            height: $job-details-footer-height
+            @include flex-center
+            
+
+            

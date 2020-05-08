@@ -1,0 +1,119 @@
+@import '../../common/color'
+@import '../../common/mixins'
+@import '../../common/fonts'
+@import '../../common/constants'
+    
+
+.post-jobs-container
+    @include fullHWP
+    
+    .form-section
+        height: calc(100% - #{$post-jobs-footer} - 60px)
+        padding: 30px
+        overflow: auto
+        .header-label
+            font-size: 24px
+            margin-left: 30px
+        
+        .basic-info 
+            padding: 10px 30px
+
+            .label
+                font-size: 18px
+                padding: 10px 0px
+                margin-bottom: 15px
+                display: flex
+                align-items: center
+                justify-content: space-between
+
+                .line
+                    height: 1px
+                    width: calc(100% - 150px)
+                    background: #c0c0c0
+
+            .info-section
+                width: 100%
+                
+ 
+                .job-title
+                    width: 75% 
+                    font-size: 20px
+                
+            .description-section
+                width: 100%
+                display: flex
+                
+                > div
+                    width: calc(50% - 30px)
+                    padding-right: 15px
+                
+                .location
+                    margin-right: 15px
+                .description
+                    width: 100%   
+
+        .expectation-section
+            padding: 10px 30px
+            margin-top: 15px
+
+            .label
+                font-size: 18px
+                padding: 10px 0px
+                margin-bottom: 15px
+                display: flex
+                align-items: center
+                justify-content: space-between
+                
+                .line
+                    height: 1px
+                    width: calc(100% - 200px)
+                    background: #c0c0c0
+
+            .group1, .group2 
+                display: flex
+
+                > div
+                    width: 50%
+                    
+            
+                .long-input
+                    width: 75%
+                
+                .list-items.short-list
+                    width: 50%
+
+                .list-items
+                        
+                    width: calc(100% - 20px) 
+                    display: flex
+                    min-height: 50px
+                    border-radius: 3px
+                    background-color: $secondary-white
+                    flex-wrap: wrap
+                    margin-right: 20px
+                    margin-bottom: 20px
+
+                    .item
+                        padding: 5px
+                        display: flex
+                        align-items: center
+                        cursor: pointer
+                        margin: 5px
+                        min-height: 20px
+                        color: $primary-white
+                        background-color: $primary-light
+
+        .about-us
+            padding: 30px
+
+            .about-us-input
+                width: 75%
+            
+    .footer-section
+        height: $post-jobs-footer
+        @include flex-justify-end
+        margin-right: 50px
+        button
+            height: 40px
+            width: 90px
+            margin-left: 15px
