@@ -1,0 +1,52 @@
+<div class="profile-container">
+    <div class="header"> 
+        <div> <h2> Edit Profile </h2> </div>
+        <div class="form-container">
+            <form [formGroup]="profileForm" autocomplete="off" novalidate  fxLayout="column wrap"
+                fxLayoutAlign="center center" fxLayoutGap="10px">
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>JobSeeker Name</mat-label>
+                        <input matInput type="text" formControlName="jobSeekerName" id="jobSeekerName">
+                        <!-- <mat-hint align="end">Not more then 60 characters long.</mat-hint> -->
+                        <mat-error *ngIf="hasError('jobSeekerName', 'required')">User Name is required</mat-error> 
+                    </mat-form-field> 
+                </div>
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Designation</mat-label>
+                        <input matInput type="text" formControlName="designation" id="designation"> 
+                        <mat-error *ngIf="hasError('designation', 'required')">designation is required</mat-error> 
+                    </mat-form-field>
+                </div>
+                
+                <div class="input-group">
+                    
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email" id="email"> 
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                        <mat-error *ngIf="hasError('email', 'email')">Email is invalid</mat-error> 
+                    </mat-form-field> 
+                </div>
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Contact</mat-label>
+                        <input matInput type="text" formControlName="contact" id="contact">
+                    </mat-form-field>
+                </div> 
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Experience (In years)</mat-label>
+                        <input matInput type="number" min=0 max=25 formControlName="experience" id="experience">
+                        <mat-hint align="end">Enter number of years.</mat-hint> 
+                    </mat-form-field> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <button mat-raised-button (click)="clear()" color="warn">Clear</button>
+        <button mat-raised-button (click)="updateProfile(profileForm.value)" color="primary">Update</button>
+    </div>
+</div>

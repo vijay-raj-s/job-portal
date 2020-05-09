@@ -28,7 +28,8 @@ export class PostJobComponent implements OnInit {
 
   openSnackBar(message: string) {
     this._snackBar.open(message, '',{
-      duration: 2000
+      duration: 2000,
+      horizontalPosition: 'right'
     })
   }
 
@@ -41,7 +42,7 @@ export class PostJobComponent implements OnInit {
       location: new FormControl('', [Validators.required]),  
       aboutUs: new FormControl(''),
       expectations: new FormControl(''),
-      skills: new FormControl('', [Validators.required]),
+      skills: new FormControl(''),
       languages: new FormControl('')
     });
 
@@ -99,7 +100,9 @@ export class PostJobComponent implements OnInit {
       default:
         break;
     }
-    
+    this.jobForm.patchValue({
+      [listType] : ''
+    })
   }
 
   deleteListItem(index,listType){

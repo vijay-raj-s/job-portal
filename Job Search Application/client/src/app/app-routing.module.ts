@@ -4,7 +4,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component'; 
 import { LogoutComponent } from './components/logout/logout.component';
 import { JobSeekerAuthGuard } from './guards/job-seeker-auth.guard';
-import { EmployerHomeComponent } from './components/employer/employer-home/employer-home.component';
 import { JobSeekerComponent } from './components/job-seeker/job-seeker.component';
 import { EmployerComponent } from './components/employer/employer.component';
 import { EmployerAuthGuard } from './guards/employer-auth.guard';
@@ -14,6 +13,8 @@ import { ApplicationsComponent } from './components/applications/applications.co
 import { EmployerApplicationsComponent } from './components/employer-applications/employer-applications.component';
 import { PostJobComponent } from './components/post-job/post-job.component';
 import { EmployerInterviewsComponent } from './components/employer-interviews/employer-interviews.component';
+import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
+import { JobseekerProfileComponent } from './components/jobseeker-profile/jobseeker-profile.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,11 @@ const routes: Routes = [
       {
         path: 'interviews',
         component: InterviewsComponent,
+        canActivate: [JobSeekerAuthGuard] 
+      },
+      {
+        path: 'profile',
+        component: JobseekerProfileComponent,
         canActivate: [JobSeekerAuthGuard] 
       }
     ]
@@ -66,13 +72,13 @@ const routes: Routes = [
         path: 'interviews',
         component: EmployerInterviewsComponent,
         canActivate: [EmployerAuthGuard] 
+      },
+      {
+        path: 'profile',
+        component: EmployerProfileComponent,
+        canActivate: [EmployerAuthGuard] 
       }
     ]
-  },  
-  {
-    path: 'employer/home',
-    component: EmployerHomeComponent,
-    canActivate: [EmployerAuthGuard]
   },
   {
     path: 'login',

@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { EmployerHomeComponent } from './components/employer/employer-home/employer-home.component';
 import { EmployerComponent } from './components/employer/employer.component';
 import { JobSeekerComponent } from './components/job-seeker/job-seeker.component';
 import { JobSeekerAuthGuard } from './guards/job-seeker-auth.guard';
@@ -17,10 +16,13 @@ import { ApplicationsComponent } from './components/applications/applications.co
 import { InterviewsComponent } from './components/interviews/interviews.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployerAuthGuard } from './guards/employer-auth.guard';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EmployerApplicationsComponent } from './components/employer-applications/employer-applications.component';
 import { PostJobComponent } from './components/post-job/post-job.component';
 import { EmployerInterviewsComponent } from './components/employer-interviews/employer-interviews.component';
+import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
+import { JobseekerProfileComponent } from './components/jobseeker-profile/jobseeker-profile.component';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,6 @@ import { EmployerInterviewsComponent } from './components/employer-interviews/em
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
-    EmployerHomeComponent,
     EmployerComponent,
     JobSeekerComponent,
     SearchComponent,
@@ -36,7 +37,9 @@ import { EmployerInterviewsComponent } from './components/employer-interviews/em
     InterviewsComponent,
     EmployerApplicationsComponent,
     PostJobComponent,
-    EmployerInterviewsComponent
+    EmployerInterviewsComponent,
+    EmployerProfileComponent,
+    JobseekerProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { EmployerInterviewsComponent } from './components/employer-interviews/em
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [JobSeekerAuthGuard, EmployerAuthGuard, HttpClient],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }, JobSeekerAuthGuard, EmployerAuthGuard, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

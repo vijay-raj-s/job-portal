@@ -1,0 +1,61 @@
+<div class="profile-container">
+    <div class="header"> 
+        <div> <h2> Edit Profile </h2> </div>
+        <div class="form-container">
+            <form [formGroup]="profileForm" autocomplete="off" novalidate  fxLayout="column wrap"
+                fxLayoutAlign="center center" fxLayoutGap="10px">
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Employer Name</mat-label>
+                        <input matInput type="text" formControlName="employerName" id="employerName">
+                        <!-- <mat-hint align="end">Not more then 60 characters long.</mat-hint> -->
+                        <mat-error *ngIf="hasError('employerName', 'required')">Employer Name is required</mat-error> 
+                    </mat-form-field> 
+                
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Company Name</mat-label>
+                        <input matInput type="text" formControlName="companyName" id="companyName">
+                        <!-- <mat-hint align="end">Not more then 60 characters long.</mat-hint> -->
+                        <mat-error *ngIf="hasError('companyName', 'required')">Company Name is required</mat-error> 
+                    </mat-form-field>
+                </div>
+                <div class="input-group">
+                    
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Location</mat-label>
+                        <input matInput type="text" formControlName="location" id="contact">
+                    </mat-form-field> 
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Company Url</mat-label>
+                        <input matInput type="text" formControlName="companyUrl" id="companyUrl">
+                        <mat-hint align="end">Eg. www.website-name.com </mat-hint> 
+                    </mat-form-field>
+                </div>
+                <div class="input-group">
+                    
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email" id="email"> 
+                        <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                        <mat-error *ngIf="hasError('email', 'email')">Email is invalid</mat-error> 
+                    </mat-form-field> 
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Contact</mat-label>
+                        <input matInput type="text" formControlName="contact" id="contact">
+                    </mat-form-field>
+                </div> 
+                <div class="input-group">
+                    <mat-form-field class="input-field" appearance='fill'>
+                        <mat-label>Company Logo</mat-label>
+                        <input matInput type="text" formControlName="companyLogo" id="companyLogo">
+                        <mat-hint align="end">Not more then 60 characters long.</mat-hint> 
+                    </mat-form-field> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <button mat-raised-button (click)="clear()" color="warn">Clear</button>
+        <button mat-raised-button (click)="updateProfile(profileForm.value)" color="primary">Update</button>
+    </div>
+</div>

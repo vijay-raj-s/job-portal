@@ -126,7 +126,36 @@ const getDetails = catchAsync(async (req, res) => {
     }
   }); 
 
-const updateAccount = catchAsync(); 
+const updateAccount = catchAsync(async (req, res) => {
+  try {
+    let currentJobSeeker = await JobSeeker.findById(req.jobSeeker.id);
+    if (!currentJobSeeker)
+      return res.status(400).json({
+        message: "Job seeker Doesn't Not Exist"
+      });  
+
+      const {
+        jobSeekerName,
+        email,
+        contact,
+        designation,
+        experience
+    } = req.body;
+
+    currentJobSeeker.jobSeekerName = jobSeekerName;
+    currentJobSeeker.email = email;
+    currentJobSeeker.contact =  contact;
+    currentJobSeeker.designation =  designation;
+    currentJobSeeker.experience =  experience;
+    await currentJobSeeker.save();
+    res.status(200).json({ message: "Updated Successfully"});
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Server Error"
+    });
+  }
+}); 
 
 
 

@@ -30,4 +30,8 @@ export class JsAuthenticationService {
   signup(user){
     return this.httpClient.post(environment.API_BASE_PATH + '/jobseeker/signup', user)
   }
+
+  getDetails(){
+    return this.httpClient.get(environment.API_BASE_PATH + '/jobseeker/details')
+  }
 }

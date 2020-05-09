@@ -5,7 +5,7 @@ const EmployerSchema = mongoose.Schema({
     type: String,
     required: true
   }, 
-  companyURL: {
+  companyUrl: {
     type: String,
     required: false
   },

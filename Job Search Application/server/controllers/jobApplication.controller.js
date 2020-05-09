@@ -33,7 +33,7 @@ const applyJob = catchAsync(async (req, res) => {
             jobSeekerId: req.jobSeeker.id
         });   
         await jobApplication.save(); 
-        res.status(200).send("Succesfully applied for the job!");
+        res.status(200).json({ message: "Succesfully applied for the job!"});
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Error in Saving job application");

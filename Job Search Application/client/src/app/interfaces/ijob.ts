@@ -7,5 +7,6 @@ export interface IJob {
     expectations? : Array<String>,
     languages? : Array<String>,
     skills? : Array<String>,
-    employer: any
+    employer?: any,
+    location?: string
 }

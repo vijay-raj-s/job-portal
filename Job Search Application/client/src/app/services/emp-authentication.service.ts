@@ -30,4 +30,8 @@ export class EmpAuthenticationService {
   signup(user){
     return this.httpClient.post(environment.API_BASE_PATH + '/employer/signup', user)
   }
+
+  getDetails(){
+    return this.httpClient.get(environment.API_BASE_PATH + '/employer/details')
+  }
 }

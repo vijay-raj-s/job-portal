@@ -26,7 +26,7 @@ const JobSeekerSchema = mongoose.Schema({
     required: true
   },
   experience: {
-    type: String,
+    type: Number,
     required: false
   },
   createdAt: {

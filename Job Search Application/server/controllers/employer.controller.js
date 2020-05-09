@@ -124,17 +124,8 @@ const login = catchAsync(async (req, res) => {
 const getDetails = catchAsync(async (req, res) => {
     try {
       // request.employer is getting fetched from Middleware after token authentication
-      const employerFromDb = await Employer.findById(req.employer.id);
-      const employer = {}; 
-      
-      employer.email = employerFromDb.email;
-      employer.contact = employerFromDb.contact;
-      employer.employerName = employerFromDb.employerName; 
-      employer.companyName = employerFromDb.companyName;
-      employer.companyLogo = employerFromDb.companyLogo;
-      employer.companyURL = employerFromDb.companyURL;
-
-      res.json(employer);
+      const employerFromDb = await Employer.findById(req.employer.id, '-password');
+      res.json(employerFromDb);
     } catch (e) {
       res.send({ message: "Error in Fetching employer" });
     }
@@ -142,22 +133,20 @@ const getDetails = catchAsync(async (req, res) => {
 
   const updateAccount = catchAsync(async (req, res) => {
     const employer = req.body;
-    const { id } = req.employer.id; 
     try {
-      let currentEmployer = await Employer.findOne({
-        id
-      });
+      let currentEmployer = await Employer.findById(req.employer.id);
       if (!currentEmployer)
         return res.status(400).json({
           message: "Employer Not Exist"
-        }); 
-
+        });  
       currentEmployer.employerName = employer.employerName;
       currentEmployer.email = employer.email;
       currentEmployer.companyName = employer.companyName;
       currentEmployer.contact = employer.contact; 
+      currentEmployer.location = employer.location;
+      currentEmployer.companyUrl = employer.companyUrl;
       await currentEmployer.save();
-      res.status(200).send("updated Successfully");
+      res.status(200).json({message: "updated Successfully"});
     } catch (e) {
       console.error(e);
       res.status(500).json({
@@ -167,7 +156,6 @@ const getDetails = catchAsync(async (req, res) => {
   });
 
   const uploadCompanyLogo = catchAsync(async (req, res) => {
-    console.log('Uploade method');
     const { id } = req.employer.id; 
     try {
       let currentEmployer = await Employer.findOne({
@@ -176,9 +164,7 @@ const getDetails = catchAsync(async (req, res) => {
       if (!currentEmployer)
         return res.status(400).json({
           message: "Employer Not Exist"
-        }); 
-      console.log('--------------------------------');
-      console.log(req.file);
+        });  
       currentEmployer.companyLogo = req.file.url;
       await currentEmployer.save();
       res.status(200).json({

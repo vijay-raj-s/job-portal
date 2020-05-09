@@ -29,4 +29,6 @@ router.post(
 
   router.get("/details", auth, jobseekerController.getDetails);
 
+  router.put("/updateAccount", auth, jobseekerController.updateAccount)
+
 module.exports = router;

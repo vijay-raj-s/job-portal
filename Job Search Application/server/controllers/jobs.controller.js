@@ -42,7 +42,9 @@ const createJob = catchAsync(async (req, res) => {
             location
         });  
         await job.save(); 
-        res.status(200).send("Succesfully created a job!");
+        res.status(200).json({
+            message: "Created Job Successfully"
+          });
     } catch (err) {
         console.log(err.message);
         res.status(500).send("Error in Saving");
