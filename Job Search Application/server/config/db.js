@@ -6,8 +6,7 @@ const MONGOURI = "mongodb+srv://dbUser:theblues29@personal-cluster-aokmr.mongodb
 const InitiateMongoServer = async () => {
   try {
     await mongoose.connect(MONGOURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      useNewUrlParser: true
     });
     console.log("Connected to DB !!");
   } catch (e) {
