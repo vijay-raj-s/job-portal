@@ -156,11 +156,9 @@ const getDetails = catchAsync(async (req, res) => {
   });
 
   const uploadCompanyLogo = catchAsync(async (req, res) => {
-    const { id } = req.employer.id; 
+    const id = req.employer.id; 
     try {
-      let currentEmployer = await Employer.findOne({
-        id
-      });
+      let currentEmployer = await Employer.findById(id);
       if (!currentEmployer)
         return res.status(400).json({
           message: "Employer Not Exist"

@@ -3,14 +3,14 @@
         <div class='search-bar-section'>
             <div class='search-label'> Search Jobs</div>
             <div class='search-bar'> 
-                <input type='text' [(ngModel)]="searchText" placeholder="Enter text to search">
-                <button mat-mini-fab color="accent" aria-label="Search for jobs">
+                <input type='text' [(ngModel)]="searchText" placeholder="Enter text and press enter to search" (keydown.enter)="getJobs()" >
+                <button mat-mini-fab color="accent" aria-label="Search for jobs" (click)="getJobs()">
                     <mat-icon>search</mat-icon>
                 </button>
             </div>
         </div>    
         <div class='filter-section'>
-            <div class='filter-label'> 144 Jobs <span class='secondary'>found</span></div>
+            <div class='filter-label'> {{jobsCount || '0'}} Jobs <span class='secondary'>found</span></div>
             <div class='filters'> 
                 
             </div>
@@ -33,18 +33,14 @@
                    {{job.employer[0].location}}
                 </div>
             </div>
+            <div class="no-jobs" *ngIf="!jobs.length" >
+                <span> No jobs found</span>
+            </div>
         </div>   
     </div>
     <div class='job-details-section'>
         <div class="details-section">
-            <div class='company-info'>
-                <div class="logo">
-                    <img  [src]="currentJob.employer[0].companyLogo" alt='logo'/>
-                </div>
-                <div class="company-name">
-                    {{currentJob.employer[0].companyName}}
-                </div>
-            </div>
+            
             <div class='job-title'>
                 <div>
                     <div class='title'>
@@ -54,7 +50,16 @@
                         {{currentJob.employer[0].location}}
                     </div>
                 </div>
+                <div class='company-info'>
+                    <div class="logo">
+                        <img  [src]="currentJob.employer[0].companyLogo" alt='logo'/>
+                    </div>
+                    <div class="company-name" *ngIf="!currentJob.employer[0].companyLogo">
+                        {{currentJob.employer[0].companyName}}
+                    </div>
+                </div>
             </div>
+            
             <div class='job-description'>
                 
                 <div class='label'>
@@ -64,19 +69,49 @@
                     {{currentJob.jobDescription}}
                 </div>
             </div>
-            <div class="job-tasks">
+            <div class="job-tasks" *ngIf="currentJob.expectations && currentJob.expectations.length">
                 <div class='label'>
-                    Expected Tasks
+                   What we are looking for?
+                </div>
+                <div class='content'>
+                    <div *ngFor="let task of currentJob.expectations">
+                        <mat-icon  color="primary" aria-hidden="false" aria-label="job icon">check</mat-icon> <span> {{task}}</span>
+                    </div>  
+                </div>
+            </div>
+            <div class="job-tasks" *ngIf="currentJob.tasks && currentJob.tasks.length">
+                <div class='label'>
+                    What you will be working on?
                 </div>
                 <div class='content'>
                     <div *ngFor="let task of currentJob.tasks">
+                        <mat-icon class="dot-icon" color="primary" aria-hidden="false" aria-label="job icon">fiber_manual_record</mat-icon> <span>{{task}}</span> 
+                    </div>  
+                </div>
+            </div>
+            <div class="job-tasks" *ngIf="currentJob.skills && currentJob.skills.length">
+                <div class='label'>
+                    What skills we expect?
+                </div>
+                <div class='content'>
+                    <div *ngFor="let task of currentJob.skills">
+                        <mat-icon class="dot-icon" color="primary" aria-hidden="false" aria-label="job icon">fiber_manual_record</mat-icon> <span>{{task}}</span>
+                    </div>  
+                </div>
+            </div>
+            <div class="job-tasks" *ngIf="currentJob.languages && currentJob.languages.length">
+                <div class='label'>
+                    Knowing these languages will be a plus.
+                </div>
+                <div class='content'>
+                    <div *ngFor="let task of currentJob.languages">
                         {{task}}
                     </div>  
                 </div>
             </div>
         </div>
         <div class="footer-section">
-            <button mat-raised-button  color="primary">Apply Now</button>
+            <button mat-raised-button (click)="applyJob()" color="primary">Apply Now</button>
         </div>
     </div>
 </div>

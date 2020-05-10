@@ -8,8 +8,8 @@ const jobsController = require("../controllers/jobs.controller")
 router.get("/getAllJobs", jobsController.getAllJobs );
 router.get("/getSingleJobs", auth, jobsController.getSingleJobs );
 router.post("/create", auth, jobsController.createJob );
-router.put("/update", auth, jobsController.updateJob );
-router.delete("/delete", auth, jobsController.deleteJob );
+router.put("/update/:id", auth, jobsController.updateJob );
+router.delete("/delete/:id", auth, jobsController.deleteJob );
 router.get("/getSingleEmployerJobs/:id",jobsController.getSingleEmployerJobs)
 
 module.exports = router;

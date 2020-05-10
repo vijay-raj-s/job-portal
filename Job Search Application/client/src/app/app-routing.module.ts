@@ -69,7 +69,7 @@ const routes: Routes = [
         canActivate: [EmployerAuthGuard] 
       },
       {
-        path: 'interviews',
+        path: 'jobs',
         component: EmployerInterviewsComponent,
         canActivate: [EmployerAuthGuard] 
       },

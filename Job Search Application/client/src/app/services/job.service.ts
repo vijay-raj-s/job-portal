@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { of, Observable } from 'rxjs';
-import { IJob } from '../interfaces/ijob';
 import { environment } from 'src/environments/environment';
 import { Constants } from '../constants';
 
@@ -19,16 +18,24 @@ export class JobService {
     this.headers = this.headers.set('token', jwt);
   }
 
-  getAllJobs(): Observable<any>{ 
-    return this.http.get(environment.API_BASE_PATH + '/jobs/getAllJobs');
+  getAllJobs(params): Observable<any>{ 
+    return this.http.get(environment.API_BASE_PATH + '/jobs/getAllJobs', { params: params} );
   }
 
-  getEmployerJobs(): Observable<any>{ 
+  getEmployerJobs(params): Observable<any>{ 
     let employerId = localStorage.getItem(Constants.E_ID);
-    return this.http.get(environment.API_BASE_PATH + `/jobs/getSingleEmployerJobs/${employerId}`);
+    return this.http.get(environment.API_BASE_PATH + `/jobs/getSingleEmployerJobs/${employerId}`, { params: params});
   }
 
   postJob(job): Observable<any>{
-    return this.http.post(environment.API_BASE_PATH + '/jobs/create', job, { headers: this.headers});
+    return this.http.post(environment.API_BASE_PATH + '/jobs/create', job);
+  }
+
+  updateJob(job,id): Observable<any>{
+    return this.http.put(environment.API_BASE_PATH + `/jobs/update/${id}`, job);
+  }
+
+  delete(id):  Observable<any>{
+    return this.http.delete(environment.API_BASE_PATH + `/jobs/delete/${id}`);
   }
 }

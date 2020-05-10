@@ -5,11 +5,8 @@
     
     
 .search-container
-    background: $secondary-white
-    padding-top: 30px
     display: flex
-    height: calc(100% - 30px)
-    width: 100%
+    @include fullHWP
     font-family: 'Open Sans', sans-serif
     
     .search-section
@@ -87,7 +84,7 @@
 
                     .logo
                         display: flex
-                        width: calc(20% - 10px)
+                        width: calc(30% - 10px)
                         justify-content: flex-end
                         align-items: center
                         padding-right: 10px
@@ -96,7 +93,7 @@
                             height: 40px
                     
                     .name
-                        width: 80%
+                        width: 70%
 
                 .job-type
                     width: 20%
@@ -107,6 +104,11 @@
             .job:hover
                 color: $primary-white
                 background-color: $primary-color
+
+            .no-jobs
+                font-size: 25px
+                @include flex-center
+                color: $primary-black
                 
     .job-details-section
         width: $job-details-width
@@ -114,7 +116,7 @@
         border-radius: 5px
         background-color: $primary-white
         @include box-shadow
-        font-size: 18px
+        font-size: 14px
 
         .details-section
             height: calc(100% - #{$job-details-footer-height} - 60px)
@@ -135,12 +137,15 @@
                     padding-left: 20px
             
             .job-title
-                @include flex-center
+                @include flex-space-between
+                
+                
+                font-size: 16px
                 margin: 30px 0px
-                text-align: center
                 height: 60px
                 .title
                     font-weight: bold
+                    color: $primary-color
 
 
             .job-description, .job-tasks
@@ -148,14 +153,20 @@
                 .label
                     font-weight: bold
                     margin: 10px 0px
+                
+                .content
+                    div
+                        @include flex-justify-start
+                        
+                        .dot-icon
+                            font-size: 10px 
+                            @include flex-center
+                            
 
         .footer-section
             height: $job-details-footer-height
             @include flex-center
-
+            
             button
                 margin: 0px 10px
-            
-            .icon
-                color: white 
             

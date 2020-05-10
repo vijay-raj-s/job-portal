@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IJob } from 'src/app/interfaces/ijob';
 import { JobService } from 'src/app/services/job.service';
+import { Constants } from 'src/app/constants';
+import { ApplicationService } from 'src/app/services/application.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-search',
@@ -8,12 +11,14 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./search.component.sass']
 })
 export class SearchComponent implements OnInit {
-
+  start: number = Constants.DEFAULT_PAGINATION_START;
+  limit: number = Constants.DEFAULT_PAGINATION_LIMIT;
+  jobsCount: number;
   searchText: string = ''
   jobs: Array<IJob> = [];
   currentJob: IJob;
 
-  constructor(private jobService: JobService) { 
+  constructor(private jobService: JobService, private applService: ApplicationService, private _snackBar: MatSnackBar) { 
     this.getJobs();
   }
 
@@ -21,8 +26,14 @@ export class SearchComponent implements OnInit {
   }
 
   getJobs(){
-    this.jobService.getAllJobs().subscribe(res => {
+    let params = {
+      page: this.start,
+      limit: this.limit,
+      q: this.searchText
+    };
+    this.jobService.getAllJobs(params).subscribe(res => {
       this.jobs = res.jobs;
+      this.jobsCount = res.totalResults;
       this.currentJob  = this.jobs[0];
     },
     (err) => {
@@ -31,9 +42,28 @@ export class SearchComponent implements OnInit {
     })
   }
 
+  applyJob(){
+    let data = {
+      jobId : this.currentJob._id,
+      employerId: this.currentJob.employerId
+    }
+    this.applService.applyJob(data).subscribe(response => {
+      let res : any = response;
+      this.openSnackBar(res.message);
+    },(err) => {
+      this.openSnackBar(err.error.message);
+    });
+  }
 
   setCurrentJob(job){
     this.currentJob = job;
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '',{
+      duration: 2000,
+      horizontalPosition: 'right'
+    })
   }
 
 }

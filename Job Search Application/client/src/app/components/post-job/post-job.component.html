@@ -1,7 +1,8 @@
 <div class='post-jobs-container'>
     <div class="form-section">
         <div class="header-label">
-            Create a new job
+            <span *ngIf="!isEdit">Create a new job</span> 
+            <span *ngIf="isEdit">Edit job</span>
         </div>
         <div class="form">
             <form [formGroup]="jobForm" autocomplete="off" novalidate  fxLayout="column wrap"
@@ -119,6 +120,7 @@
     </div>
     <div class="footer-section">
         <button mat-raised-button (click)="clear()" color="warn">Clear</button>
-        <button mat-raised-button (click)="createJob(jobForm.value)" color="primary">Save</button>
+        <button *ngIf="!isEdit" mat-raised-button (click)="createJob(jobForm.value, false)" color="primary">Save</button>
+        <button *ngIf="isEdit" mat-raised-button (click)="createJob(jobForm.value, true)" color="primary">Update</button>
     </div>
 </div>

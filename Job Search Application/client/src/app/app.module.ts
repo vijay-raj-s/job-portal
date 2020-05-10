@@ -23,6 +23,8 @@ import { EmployerInterviewsComponent } from './components/employer-interviews/em
 import { EmployerProfileComponent } from './components/employer-profile/employer-profile.component';
 import { JobseekerProfileComponent } from './components/jobseeker-profile/jobseeker-profile.component';
 import { JwtInterceptor } from './jwt.interceptor';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DeletedialogComponent } from './components/deletedialog/deletedialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { JwtInterceptor } from './jwt.interceptor';
     PostJobComponent,
     EmployerInterviewsComponent,
     EmployerProfileComponent,
-    JobseekerProfileComponent
+    JobseekerProfileComponent,
+    DialogComponent,
+    DeletedialogComponent
   ],
   imports: [
     BrowserModule,

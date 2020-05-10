@@ -2,6 +2,8 @@ const catchAsync = require('../utils/catchAsync');
 const { validationResult} = require("express-validator"); 
 const JobSeeker = require("../model/JobSeeker");
 const JobApplication = require("../model/Application"); 
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 const _limit = 5;
 
@@ -62,7 +64,7 @@ const getApplications = catchAsync(async (req, res) => {
       let match = {};
 
       // if (req.query.q) match.jobTitle = {$regex: req.query.q, $options: 'i'};
-      match.employerId = req.employer.id;
+      match.employerId = ObjectId(req.employer.id);
       aggregate_options.push({$match: match});
 
       let sortOrder = req.query.sort_order && req.query.sort_order === 'asc' ? 1 : -1;

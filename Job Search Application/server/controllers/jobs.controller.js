@@ -53,7 +53,37 @@ const createJob = catchAsync(async (req, res) => {
     }
 });
 
-const updateJob = catchAsync();
+const updateJob = catchAsync(async (req, res) => {
+    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            errors: errors.array()
+        });
+    } 
+
+    const jobId = ObjectId(req.params.id);
+    let currentJob = await Job.findById(jobId);
+    try {
+        currentJob.jobTitle = req.body.jobTitle;
+        currentJob.jobType = req.body.jobType;
+        currentJob.location = req.body.location;
+        currentJob.jobDescription = req.body.jobDescription;
+        currentJob.skills = req.body.skills;
+        currentJob.languages = req.body.languages;
+        currentJob.expectations = req.body.expectations;
+        currentJob.tasks = req.body.tasks;
+        currentJob.aboutUs = req.body.aboutUs;
+    
+        await currentJob.save(); 
+        res.status(200).json({
+            message: "Created Job Successfully"
+          });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Error in Saving");
+    }
+});
 
 const getAllJobs = catchAsync(async (req, res) => {
     try {
@@ -96,7 +126,28 @@ const getAllJobs = catchAsync(async (req, res) => {
 
 const getSingleJobs = catchAsync();
 
-const deleteJob = catchAsync();
+const deleteJob = catchAsync(
+    async (req, res) => {
+        const employerId = req.employer.id;
+        const jobId = req.params.id;
+        try{
+            const job = await Job.findById(jobId);
+            if(!job){
+                res.status(400).json({
+                    message: "No jobs found"
+                })
+            }
+            await job.remove();
+            res.status(200).json({
+                message: "successfully deleted Job!"
+            })
+
+        }catch(e){
+            console.log(err.message);
+             res.status(500).send("Error in Saving");
+        }
+    }
+);
 
 const getSingleEmployerJobs = catchAsync(async (req, res) => {
     try {

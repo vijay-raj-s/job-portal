@@ -14,7 +14,7 @@ export class ApplicationService {
   }
 
   applyJob(application){
-    return this.httpClient.put(environment.API_BASE_PATH + '/application/apply', application);
+    return this.httpClient.post(environment.API_BASE_PATH + '/application/apply', application);
   }
 
 

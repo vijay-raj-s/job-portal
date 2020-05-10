@@ -44,6 +44,7 @@
     
     .applications-section
         display: flex
+        overflow: auto
         flex-wrap: wrap
         height: calc(100% - #{$stats-height})
 
@@ -59,6 +60,8 @@
 
         .single-app
             width: 300px
+            height: 230px
+            background-color: $primary-white
             padding: 15px
             @include box-shadow
             margin: 20px

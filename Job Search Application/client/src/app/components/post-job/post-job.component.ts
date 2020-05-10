@@ -4,6 +4,7 @@ import { IJob } from 'src/app/interfaces/ijob';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import { JobService } from 'src/app/services/job.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-job',
@@ -20,10 +21,20 @@ export class PostJobComponent implements OnInit {
   expectation: string;
   task: string;
   skill: string;
+  isEdit: boolean = false;
+  editJob: any = {}
   jobTypeOptions: ['Part-time', 'Full-time','Internship', 'Working student']
 
-  constructor(private jobService: JobService, private _snackBar: MatSnackBar) { 
-    
+  constructor(private jobService: JobService, private _snackBar: MatSnackBar, private router: Router) { 
+    if(window.history.state.data){
+      this.isEdit = true; 
+      this.editJob = window.history.state.data;
+      this.jobSkills = this.editJob.skills;
+      this.languages = this.editJob.languages;
+      this.expectation = this.editJob.expectations;
+      this.tasks = this.editJob.tasks; 
+    }
+
   }
 
   openSnackBar(message: string) {
@@ -46,6 +57,14 @@ export class PostJobComponent implements OnInit {
       languages: new FormControl('')
     });
 
+    let {jobTitle, jobType, jobDescription, location, aboutUs} = this.editJob;
+    this.jobForm.patchValue({
+        jobTitle,
+        jobType,
+        jobDescription,
+        location,  
+        aboutUs
+      });
 
   }
 
@@ -53,14 +72,15 @@ export class PostJobComponent implements OnInit {
     return this.jobForm.controls[controlName].hasError(errorName);
   }
 
-  createJob = (jobFormValue) => {
+  createJob = (jobFormValue, isUpdate) => {
     this.jobForm.markAllAsTouched(); 
     if (this.jobForm.valid) {
-      this.executeJobCreation(jobFormValue);
+      this.executeJobCreation(jobFormValue, isUpdate);
     }
   }
+ 
 
-  executeJobCreation = (jobFormValue) => {
+  executeJobCreation = (jobFormValue, isUpdate) => {
     let job: IJob = {
       jobTitle: jobFormValue.jobTitle,
       jobType: jobFormValue.jobType,
@@ -73,13 +93,26 @@ export class PostJobComponent implements OnInit {
       aboutUs: jobFormValue.aboutUs
     }
 
-    this.jobService.postJob(job).subscribe(response =>{
-      this.openSnackBar('Job Posted Successfully!');
-      this.clear();
-    },
-    (err) =>{
-      console.log(`Error Saving Job ${err}`);
-    })
+    if(!isUpdate){
+      this.jobService.postJob(job).subscribe(response =>{
+        this.openSnackBar('Job Posted Successfully!');
+        this.clear();
+      },
+      (err) =>{
+        console.log(`Error Saving Job ${err}`);
+      })
+    }else{
+      let jobId = this.editJob._id;
+      this.jobService.updateJob(job, jobId).subscribe(response =>{
+        this.openSnackBar('Job Posted Successfully!');
+        this.clear();
+        this.router.navigateByUrl('/employer/jobs')
+      },
+      (err) =>{
+        console.log(`Error Saving Job ${err}`);
+      })
+    }
+    
     
   }
 
@@ -136,5 +169,9 @@ export class PostJobComponent implements OnInit {
  
   clear(){
     this.jobForm.reset();
+    this.jobSkills = [];
+    this.languages = [];
+    this.tasks = [];
+    this.expectations = [];
   }
 }
