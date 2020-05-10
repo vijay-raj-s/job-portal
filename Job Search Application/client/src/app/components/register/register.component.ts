@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { EmpAuthenticationService } from 'src/app/services/emp-authentication.service';
 import { JsAuthenticationService } from 'src/app/services/js-authentication.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,12 @@ export class RegisterComponent implements OnInit {
   
   passwordNotMatch: boolean = false;
 
-  constructor(private jsAuthenticationService : JsAuthenticationService, private empAuthenticationService : EmpAuthenticationService, private router : Router) { }
+  constructor(
+    private jsAuthenticationService : JsAuthenticationService,
+    private empAuthenticationService : EmpAuthenticationService,
+    private router : Router,
+    private _snackBar: MatSnackBar
+    ) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -29,6 +35,13 @@ export class RegisterComponent implements OnInit {
     })
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '',{
+      duration: 2000,
+      horizontalPosition: 'right'
+    })
+  }
+  
   public hasError = (controlName: string, errorName: string) =>{
     return this.registerForm.controls[controlName].hasError(errorName);
   }
@@ -51,6 +64,7 @@ export class RegisterComponent implements OnInit {
     if(this.isJobseeker){
       user.jobSeekerName = registerForm.name;
       this.jsAuthenticationService.signup(user).subscribe(res => { 
+        this.openSnackBar("Registration Successful");
         this.router.navigateByUrl('/login');
       },
       (err) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { JsAuthenticationService } from 'src/app/services/js-authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-jobseeker-profile',
@@ -11,7 +12,7 @@ export class JobseekerProfileComponent implements OnInit {
 
   public profileForm : FormGroup; 
 
-  constructor(private jsAuthService: JsAuthenticationService) { 
+  constructor(private jsAuthService: JsAuthenticationService, private _snackBar: MatSnackBar) { 
     jsAuthService.getDetails().subscribe(response => {
       let res : any = response;
       const {jobSeekerName, designation, email, contact, experience} = res;
@@ -43,9 +44,16 @@ export class JobseekerProfileComponent implements OnInit {
     return this.profileForm.controls[controlName].hasError(errorName);
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '',{
+      duration: 2000,
+      horizontalPosition: 'right'
+    })
+  }
+
   updateProfile(profileForm){
     this.jsAuthService.update(profileForm).subscribe(response => {
-      console.log(response);
+      this.openSnackBar("Profile update successful.")
     }, (err) => {
       console.log("Error updating Job Seeker profile")
     })

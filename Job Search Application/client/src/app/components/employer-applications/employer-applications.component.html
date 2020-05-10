@@ -3,7 +3,7 @@
         <div class="jobs-posted">
             <div>
                 <div class="count">
-                    35
+                    0
                 </div>
                 <div class="label">
                     Jobs Posted
@@ -13,7 +13,7 @@
         <div class="jobs-open">
             <div>
                 <div class="count">
-                    35
+                    0
                 </div>
                 <div class="label">
                     Jobs Open
@@ -23,7 +23,7 @@
         <div class="applicants">
             <div>
                 <div class="count">
-                    35
+                    0
                 </div>
                 <div class="label">
                     Applicants
@@ -33,7 +33,7 @@
         <div class="jobs-closed">
             <div>
                 <div class="count">
-                    35
+                    0
                 </div>
                 <div class="label">
                     Jobs Closed
@@ -41,4 +41,47 @@
             </div>
         </div>
     </div>
+    <div class="applications-section">
+        <div class="single-app" *ngFor="let application of jobApplications">
+            <div class="list-head">
+                <div class="list-head-left">
+                    <div class="designation">
+                        {{application.jobSeeker[0].designation}}
+                    </div> 
+                </div>
+                <div class="list-head-right">
+                    <div class="createdOn">
+                        <!-- {{application.jobSeeker[0].createdAt}} -->
+                    </div>
+                </div>    
+            </div>
+            
+            <div class="list-body">
+                <div class="job-title">
+                    <div class="label"><mat-icon  color="primary" aria-hidden="false" aria-label="job icon">work_outline</mat-icon> <span> Job title: </span></div>
+                    <div class="value"> {{application.job[0].jobTitle}}</div>
+                </div>
+                <div class="name">
+                    <div class="label"><mat-icon  color="primary" aria-hidden="false" aria-label="job icon">face</mat-icon> <span> Name: </span></div>
+                    <div class="value"> {{application.jobSeeker[0].jobSeekerName}}</div>
+                </div>
+                <div class="experience">
+                    <div class="label"><mat-icon  color="primary" aria-hidden="false" aria-label="job icon">history</mat-icon> <span> Experience:</span></div>
+                    <div class="value"> {{application.jobSeeker[0].experience}} Years</div>
+                </div>
+                <div class="skills">
+                    <div class="label"><mat-icon  color="primary" aria-hidden="false" aria-label="job icon">school</mat-icon> <span> Skills:</span></div>
+                    <div class="value"> <span *ngFor="let skill of application.jobSeeker[0].skills;index as index"> {{skill}}<span *ngIf="application.jobSeeker[0].skills.length > (index + 1)">,</span> </span> </div>
+                </div>
+            </div>
+            <div class="footer">
+                <button mat-raised-button (click)="viewApplication()" color="primary">See Full Profile</button>
+                <button mat-raised-button (click)="reject()" color="warn">Reject</button>
+            </div>
+
+        </div>
+        <div class="no-applications" *ngIf="!jobApplications.length">
+                You have no applicants
+        </div>
+    </div> 
 </div>

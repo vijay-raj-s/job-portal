@@ -1,1 +1,83 @@
-<p>employer-interviews works!</p>
+<div class='search-container'>
+    <div class='search-section'>
+        <div class='search-bar-section'>
+            <div class='search-label'> Search Jobs</div>
+            <div class='search-bar'> 
+                <input type='text' [(ngModel)]="searchText" placeholder="Enter text to search">
+                <button mat-mini-fab color="accent" aria-label="Search for jobs">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>    
+        <div class='filter-section'>
+            <div class='filter-label'> 144 Jobs <span class='secondary'>found</span></div>
+            <div class='filters'> 
+                
+            </div>
+        </div> 
+        <div class='search-listing'>
+            <div class='job' *ngFor="let job of jobs"  (click)="setCurrentJob(job)"> 
+                <div class="company-info">
+                    <div class="logo">
+                        <img  [src]="job.employer[0].companyLogo" alt='logo'/>
+                    </div>
+                    <div class="name">
+                        <div class="job-title"> {{job.jobTitle}}</div>
+                        <div class="company-name">{{job.employer[0].companyName || 'Apple'}}</div>
+                    </div>
+                </div>
+                <div class="job-type">
+                    Working student
+                </div>
+                <div class="location">
+                   {{job.employer[0].location}}
+                </div>
+            </div>
+        </div>   
+    </div>
+    <div class='job-details-section'>
+        <div class="details-section">
+            <div class='company-info'>
+                <div class="logo">
+                    <img  [src]="currentJob.employer[0].companyLogo" alt='logo'/>
+                </div>
+                <div class="company-name">
+                    {{currentJob.employer[0].companyName}}
+                </div>
+            </div>
+            <div class='job-title'>
+                <div>
+                    <div class='title'>
+                        {{currentJob.jobTitle}}
+                    </div>
+                    <div class='location'>
+                        {{currentJob.employer[0].location}}
+                    </div>
+                </div>
+            </div>
+            <div class='job-description'>
+                
+                <div class='label'>
+                    Job Description
+                </div>
+                <div class='content'>
+                    {{currentJob.jobDescription}}
+                </div>
+            </div>
+            <div class="job-tasks">
+                <div class='label'>
+                    Expected Tasks
+                </div>
+                <div class='content'>
+                    <div *ngFor="let task of currentJob.tasks">
+                        {{task}}
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <div class="footer-section">
+            <button mat-raised-button  color="primary"><mat-icon class="icon" aria-hidden="false" aria-label="job icon">edit</mat-icon> Edit</button>
+            <button mat-raised-button  color="warn"><mat-icon  class="icon" aria-hidden="false" aria-label="job icon">delete</mat-icon> Delete</button>
+        </div>
+    </div>
+</div>

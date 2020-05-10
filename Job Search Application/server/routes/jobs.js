@@ -10,5 +10,6 @@ router.get("/getSingleJobs", auth, jobsController.getSingleJobs );
 router.post("/create", auth, jobsController.createJob );
 router.put("/update", auth, jobsController.updateJob );
 router.delete("/delete", auth, jobsController.deleteJob );
+router.get("/getSingleEmployerJobs/:id",jobsController.getSingleEmployerJobs)
 
 module.exports = router;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationService } from 'src/app/services/application.service';
+import { Constants } from 'src/app/constants';
 
 @Component({
   selector: 'app-employer-applications',
@@ -7,9 +9,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployerApplicationsComponent implements OnInit {
 
-  constructor() { }
+  _start: number = Constants.DEFAULT_PAGINATION_START;
+  _limit: number = Constants.DEFAULT_PAGINATION_LIMIT;
+  jobApplications: any = {}
+  applicationCount: number;
+
+  constructor(private applicationService: ApplicationService) {
+    this.getJobApplications();
+  }
 
   ngOnInit(): void {
+  }
+
+  getJobApplications(){
+    let params = {
+      start: this._start,
+      limit: this._limit
+    };
+    this.applicationService.getJobApplications(params).subscribe(response => {
+      let res : any = response;
+      this.jobApplications = res.jobApplications;
+      this.applicationCount = res.totalResults;
+    },(err) => {
+      console.log(err)
+    });
+  }
+
+  viewApplication(){
+
+  }
+
+  reject(){
+    
   }
 
 }

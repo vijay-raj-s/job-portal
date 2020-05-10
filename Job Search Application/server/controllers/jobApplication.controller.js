@@ -59,11 +59,11 @@ const getApplications = catchAsync(async (req, res) => {
           }
       };
 
-      // let match = {};
+      let match = {};
 
       // if (req.query.q) match.jobTitle = {$regex: req.query.q, $options: 'i'};
-
-      // aggregate_options.push({$match: match});
+      match.employerId = req.employer.id;
+      aggregate_options.push({$match: match});
 
       let sortOrder = req.query.sort_order && req.query.sort_order === 'asc' ? 1 : -1;
       aggregate_options.push({$sort: {"createdAt": sortOrder}});

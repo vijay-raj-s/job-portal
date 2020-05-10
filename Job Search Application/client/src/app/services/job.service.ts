@@ -23,6 +23,11 @@ export class JobService {
     return this.http.get(environment.API_BASE_PATH + '/jobs/getAllJobs');
   }
 
+  getEmployerJobs(): Observable<any>{ 
+    let employerId = localStorage.getItem(Constants.E_ID);
+    return this.http.get(environment.API_BASE_PATH + `/jobs/getSingleEmployerJobs/${employerId}`);
+  }
+
   postJob(job): Observable<any>{
     return this.http.post(environment.API_BASE_PATH + '/jobs/create', job, { headers: this.headers});
   }

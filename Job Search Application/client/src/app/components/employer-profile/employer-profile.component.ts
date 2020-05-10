@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { EmpAuthenticationService } from 'src/app/services/emp-authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-employer-profile',
   templateUrl: './employer-profile.component.html',
@@ -10,7 +11,7 @@ export class EmployerProfileComponent implements OnInit {
 
   public profileForm : FormGroup; 
 
-  constructor(private empAuthService: EmpAuthenticationService) {
+  constructor(private empAuthService: EmpAuthenticationService, private _snackBar: MatSnackBar) {
     this.getPersonalDetails();
    }
 
@@ -47,9 +48,18 @@ export class EmployerProfileComponent implements OnInit {
     return this.profileForm.controls[controlName].hasError(errorName);
   }
 
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '',{
+      duration: 2000,
+      horizontalPosition: 'right'
+    })
+  }
+  
+
   updateProfile(profileForm){
     this.empAuthService.update(profileForm).subscribe(response => {
       console.log(response);
+      this.openSnackBar("Profile update successful.")
     }, (err) => {
       console.log("Error updating Employer profile")
     })
