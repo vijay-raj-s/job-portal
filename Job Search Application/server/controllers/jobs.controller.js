@@ -5,6 +5,10 @@ const Employer = require("../model/Employer");
 const limit_ = 5;
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
+const redisClient = require("../config/redis");
+
+var redis = require('redis');
+var client = redis.createClient();
 
 const createJob = catchAsync(async (req, res) => {
      
@@ -189,11 +193,75 @@ const getSingleEmployerJobs = catchAsync(async (req, res) => {
     }
   });
 
+const saveJob = catchAsync( async(req,res) => {
+    let jobSeekerId = req.jobSeeker.id;
+    let jobId = req.query.jobId;
+    let job = await Job.findById(jobId);
+    if (!job)
+        return res.status(400).json({
+          message: "job does Not Exist"
+        });     
+
+    let savedJob; 
+    let alreadySaved;
+    client.get(jobSeekerId, function(err, reply) {
+        if(err){
+            console.log(err);
+            res.send({ message: "Error in getting saved jobs" });
+        } 
+        savedJob = JSON.parse(reply);  
+        let jobs = [];
+        if(savedJob){
+            console.log(savedJob);
+            savedJob.map(job => {
+                if(job._id === jobId){
+                    alreadySaved = true;
+                } 
+            });
+            jobs.push(...savedJob);
+
+        }
+        
+        if(alreadySaved){
+            res.status(200).json({message: "Already saved this job"})  
+        }else{
+            jobs.push(job);  
+            jobString = JSON.stringify(jobs);
+            client.set(jobSeekerId, jobString, function (err, reply){
+                if(err){
+                    console.log("error setting jobs in redis")
+                }
+                console.log("successfully set");
+                res.status(200).send("Succesfully saved job to redis")
+            }); 
+        }
+        
+        
+    });
+    
+     
+});
+
+const getSavedJobs = catchAsync( async(req,res) => {
+    let jobSeekerId = req.jobSeeker.id; 
+    client.get(jobSeekerId, function(err, reply) {
+        if(err){
+            console.log(err);
+            res.send({ message: "Error in getting saved jobs" });
+        } 
+        let savedJob = JSON.parse(reply); 
+        res.status(200).json(savedJob);
+    });
+    
+});
+
 module.exports = {
     createJob,
     updateJob,
     getSingleJobs,
     getAllJobs,
     deleteJob,
-    getSingleEmployerJobs
+    getSingleEmployerJobs,
+    saveJob,
+    getSavedJobs
 }

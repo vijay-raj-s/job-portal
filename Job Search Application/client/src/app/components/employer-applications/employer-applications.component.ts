@@ -24,7 +24,7 @@ export class EmployerApplicationsComponent implements OnInit {
   getJobApplications(){
     let params = {
       start: this._start,
-      limit: this._limit
+      limit: 50
     };
     this.applicationService.getJobApplications(params).subscribe(response => {
       let res : any = response;

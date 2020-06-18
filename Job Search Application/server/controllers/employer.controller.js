@@ -176,6 +176,7 @@ const getDetails = catchAsync(async (req, res) => {
     }
   }); 
  
+  
 
 module.exports = {
     signUp,

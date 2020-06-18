@@ -19,11 +19,11 @@
             <div class='job' *ngFor="let job of jobs"  (click)="setCurrentJob(job)"> 
                 <div class="company-info">
                     <div class="logo">
-                        <img  [src]="job.employer[0].companyLogo" alt='logo'/>
+                        <img *ngIf="job.employer[0]" [src]="job.employer[0].companyLogo" alt='logo'/>
                     </div>
                     <div class="name">
                         <div class="job-title"> {{job.jobTitle}}</div>
-                        <div class="company-name">{{job.employer[0].companyName || 'Apple'}}</div>
+                        <div *ngIf="job.employer[0]" class="company-name">{{job.employer[0].companyName || 'Apple'}}</div>
                     </div>
                 </div>
                 <div class="job-type">

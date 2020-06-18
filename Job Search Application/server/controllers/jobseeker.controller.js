@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const catchAsync = require('../utils/catchAsync');
 const { validationResult} = require("express-validator");
 const JobSeeker = require("../model/JobSeeker");
-
+const neo4j = require("../config/neo_db");
 
 const signUp = catchAsync(async (req, res) => {
     console.log(req.body);
@@ -155,7 +155,43 @@ const updateAccount = catchAsync(async (req, res) => {
       message: "Server Error"
     });
   }
-}); 
+});
+
+const getJobRecommendations = catchAsync(async (req, res) => {
+  try {
+      //Getting Job recommendations
+      let jobseekerId = req.jobSeeker.id;
+      console.log("Inside job recommendation");
+      const session = neo4j.driver.session()
+      const cypher = `// Getting rec. jobs 
+                      MATCH (js:JobSeeker)
+                      WHERE js.jobseekerId = "${jobseekerId}"
+                      MATCH (ajs:JobSeeker)
+                      MATCH (js)-[:HAS_SKILL]->(sk:Skills)<-[:HAS_SKILL]-(ajs)  
+                      OPTIONAL MATCH (js)-[:LIVES_IN]->(l:Location)<-[:LIVES_IN]-(ajs)
+                      OPTIONAL MATCH (js)-[:WANTS_JOB_TYPE]->(jt:JobType)<-[:WANTS_JOB_TYPE]-(ajs)
+                      MATCH (ajs)-[:HAS_APPLIED_FOR]->(j:Job)
+                      WHERE NOT (js)-[:HAS_APPLIED_FOR]->(j)
+                      RETURN DISTINCT j`;
+      session.run(cypher)
+        .then(result => { 
+          let response = [];
+          result.records.map( record => { 
+              response.push(record._fields[0].properties)
+          });
+          res.status(200).json({ response });
+      }).catch(e => {
+        console.log(e);
+      })
+      .then(() => {
+        return session.close();
+      });
+  }
+  catch(e){
+    console.log("Error while getting job recommendations");
+    console.log(e);
+  }
+});
 
 
 
@@ -163,5 +199,6 @@ module.exports = {
     signUp,
     login,
     getDetails,
-    updateAccount
+    updateAccount,
+    getJobRecommendations
 }

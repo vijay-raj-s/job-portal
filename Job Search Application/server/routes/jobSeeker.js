@@ -31,4 +31,6 @@ router.post(
 
   router.put("/updateAccount", auth, jobseekerController.updateAccount)
 
+  router.get("/getRecommendedJobs", auth, jobseekerController.getJobRecommendations);
+
 module.exports = router;

@@ -32,8 +32,10 @@ export class SearchComponent implements OnInit {
       q: this.searchText
     };
     this.jobService.getAllJobs(params).subscribe(res => {
+      res.jobs.splice(0,1);
       this.jobs = res.jobs;
-      this.jobsCount = res.totalResults;
+
+      this.jobsCount = res.totalResults - 1;
       this.currentJob  = this.jobs[0];
     },
     (err) => {
